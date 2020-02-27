@@ -1,15 +1,18 @@
 
 public class Player {
 	private String name;
-	private int atk, def, spd;
+	private int maxhp, chp, atk, def, spd, level;
 	private MapNode cmap;
 	
-	public Player(String name, int atk, int def, int spd) {
+	public Player(String name, int maxhp, int atk, int def, int spd) {
 		this.name = name;
+		this.maxhp = maxhp;
+		chp = maxhp;
 		this.atk = atk;
 		this.def = def;
 		this.spd = spd;
 		cmap = MapNode.CreateMap();
+		level = 1;
 	}
 
 	public void move() {
@@ -50,6 +53,22 @@ public class Player {
 		this.name = name;
 	}
 
+	public int getMaxhp() {
+		return maxhp;
+	}
+
+	public void setMaxhp(int maxhp) {
+		this.maxhp = maxhp;
+	}
+
+	public int getChp() {
+		return chp;
+	}
+
+	public void setChp(int chp) {
+		this.chp = chp;
+	}
+
 	public int getAtk() {
 		return atk;
 	}
@@ -80,6 +99,14 @@ public class Player {
 
 	public void setCmap(MapNode cmap) {
 		this.cmap = cmap;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 
 	
