@@ -6,7 +6,7 @@ public class GameStart {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Player player = new Player("Protag", 10, 5, 5, 5);
+		Player player = new Player("Chipotle", 10, 5, 5, 5);
 		System.out.printf("Player %s, Level %d%n", player.getName(), player.getLevel());
 		Goblin gobbo = new Goblin();
 		System.out.printf("%s, HP %s%n",gobbo, gobbo.getMaxhp());
