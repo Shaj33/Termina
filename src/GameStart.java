@@ -11,8 +11,12 @@ public class GameStart {
 		Goblin gobbo = new Goblin();
 		System.out.printf("%s, HP %s%n",gobbo, gobbo.getMaxhp());
 		gobbo.attack();
-		System.out.println(gobbo.specattack2());
+		player.attack();
+		player.setEqWeapon(new Weapon("Godsword", "You unleash the wrath of the heavens themselves upon your target.", 9999));
 		gobbo.specattack1();
+		System.out.printf("You equip the %s%n", player.getEqWeapon());
+		player.attack();
+		System.out.println("Holy fucking shit you killed Gobbo");
 		
 		
 		
