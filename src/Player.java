@@ -1,23 +1,29 @@
+import java.util.ArrayList;
 
 public class Player {
 	private String name;
-	private int maxhp, chp, atk, def, spd, level, exp;
+	private int maxhp, chp, maxtech, ctech, atk, def, spd, level, exp;
 	private MapNode cmap;
 	private Weapon eqWeapon;
 	private Armor eqArmor;
+	private ArrayList<Skill> Skills = new ArrayList<Skill>();
 	
-	public Player(String name, int maxhp, int atk, int def, int spd) {
+	//Player constructed at game beginning 
+	public Player(String name) {
 		this.name = name;
-		this.maxhp = maxhp;
-		chp = maxhp;
-		this.atk = atk;
-		this.def = def;
-		this.spd = spd;
+		maxhp = 10;
+		chp = 10;
+		maxtech = 10;
+		ctech = 0;
+		atk = 3;
+		def = 3;
+		spd = 3;
 		cmap = MapNode.CreateMap();
 		level = 1;
-		setExp(0);
+		exp = 0;
 		eqWeapon = new Weapon("Fists", "You swing your fists.", 1);
 		eqArmor = new Armor("Peasant Clothes", 1);
+		Skills.add(new BigStrike());
 	}
 
 	//Move command allows Player to move around the map
@@ -167,6 +173,38 @@ public class Player {
 
 	public void setExp(int exp) {
 		this.exp = exp;
+	}
+
+	public int getMaxtech() {
+		return maxtech;
+	}
+
+	public void setMaxtech(int maxtech) {
+		this.maxtech = maxtech;
+	}
+
+	public int getCtech() {
+		return ctech;
+	}
+
+	public void setCtech(int ctech) {
+		this.ctech = ctech;
+	}
+
+	public Armor getEqArmor() {
+		return eqArmor;
+	}
+
+	public void setEqArmor(Armor eqArmor) {
+		this.eqArmor = eqArmor;
+	}
+
+	public ArrayList<Skill> getSkills() {
+		return Skills;
+	}
+
+	public void setSkills(ArrayList<Skill> skills) {
+		Skills = skills;
 	}
 
 	

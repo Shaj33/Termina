@@ -8,7 +8,7 @@ public class GameStart {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Player player = new Player("Chipotle", 10, 5, 5, 5);
+		Player player = new Player("Chipotle");
 		player.move();
 		player.move();
 		player.move();
