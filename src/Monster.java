@@ -1,8 +1,9 @@
 
 public class Monster {
 	
-	private int maxhp, chp, atk, def, spd;
+	private int maxhp, chp, atk, def, spd; //Monster stats
 	
+	//Constructor
 	public Monster(int maxhp, int atk, int def, int spd) {
 		this.maxhp = maxhp;
 		chp = maxhp;
@@ -11,9 +12,12 @@ public class Monster {
 		this.spd = spd;
 	}
 	
+	//Generic Battle Entrance
 	public String entrance() {
 		return "You've encountered a "+getClass().getName();
 	}
+	
+	//Generic Attack and Special Attacks, Should get Overridden by Specific Monster Classes
 	public boolean attack(Player player) {
 		return false;
 	}
@@ -26,10 +30,12 @@ public class Monster {
 		return false;
 	}
 	
+	//Generic Defend
 	public int defend() {
 		return def;
 	}
 	
+	//Getters & Setters
 	public int getMaxhp() {
 		return maxhp;
 	}
@@ -45,7 +51,9 @@ public class Monster {
 	public void setChp(int chp) {
 		this.chp = chp;
 	}
-
+	
+	
+	//Get Name
 	public String toString() {
 		return getClass().getName();
 	}
@@ -88,9 +96,10 @@ class Goblin extends Monster {
 		return "A goblin appears, brashing an oversized stick like a club.";
 	}
 	public boolean attack(Player player) {
-		System.out.println("The Goblin clubs you with its stick.");
-		
+		System.out.println("The Goblin pokes you with its stick.");
+
 		int damage = getAtk() - player.defend();
+		
 		System.out.printf("It deals %d damage%n", damage);
 		player.setChp(player.getChp() - damage);
 		System.out.printf("You have %d health left.%n", player.getChp());
