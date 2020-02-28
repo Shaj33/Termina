@@ -16,7 +16,7 @@ public class Battle {
 				playermove(player, enemy);
 			}
 			
-			if (monstertick > 1000) {
+			if (enemy.getChp() > 0 && monstertick > 1000) {
 				monstertick -= 1000;
 				monstermove(player, enemy);
 			}

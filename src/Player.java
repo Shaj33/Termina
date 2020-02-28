@@ -86,7 +86,7 @@ public class Player {
 	}
 	
 	public int defend() {
-		return eqArmor.defend();
+		return def + eqArmor.defend();
 	}
 	
 	public String getName() {
