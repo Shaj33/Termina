@@ -3,7 +3,7 @@ public class Battle {
 	
 	
 	public static boolean enemybattle(Player player, Monster enemy) {
-		System.out.printf("You have encountered a %s%n", enemy);
+		System.out.println(enemy.entrance());
 		int playertick = 0, monstertick = 0;
 		
 		
