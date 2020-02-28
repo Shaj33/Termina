@@ -24,7 +24,7 @@ public class GameStart {
 			return false;
 		}
 		try {
-			int i = Integer.parseInt(input);
+			Integer.parseInt(input);
 		} catch (NumberFormatException nfe) {
 			return false;
 		}
