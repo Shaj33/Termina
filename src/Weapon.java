@@ -13,6 +13,11 @@ public class Weapon {
 		return new Weapon("Fists", "You swing your arms", 1);
 	}
 	
+	public int attack() {
+		System.out.println(attackdesc);
+		return atk;
+	}
+	
 	public String toString() {
 		return name;
 	}

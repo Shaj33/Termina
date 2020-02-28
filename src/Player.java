@@ -1,7 +1,7 @@
 
 public class Player {
 	private String name;
-	private int maxhp, chp, atk, def, spd, level;
+	private int maxhp, chp, atk, def, spd, level, exp;
 	private MapNode cmap;
 	private Weapon eqWeapon;
 	
@@ -14,6 +14,7 @@ public class Player {
 		this.spd = spd;
 		cmap = MapNode.CreateMap();
 		level = 1;
+		setExp(0);
 		eqWeapon = Weapon.createFists();
 	}
 
@@ -48,9 +49,9 @@ public class Player {
 		System.out.printf("%n%s%n%s%n", cmap, cmap.getDesc());
 	}
 	
-	public void attack() {
-		System.out.println(eqWeapon.getAttackdesc());
-		System.out.printf("You hit for %d damage.%n", eqWeapon.getAtk());
+	public boolean attack() {
+		System.out.printf("You hit for %d damage.%n", eqWeapon.attack());
+		return true;
 	}
 	
 	public String getName() {
@@ -123,6 +124,14 @@ public class Player {
 
 	public void setEqWeapon(Weapon eqWeapon) {
 		this.eqWeapon = eqWeapon;
+	}
+
+	public int getExp() {
+		return exp;
+	}
+
+	public void setExp(int exp) {
+		this.exp = exp;
 	}
 
 	
