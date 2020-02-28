@@ -11,6 +11,9 @@ public class Monster {
 		this.spd = spd;
 	}
 	
+	public String entrance() {
+		return "You've encountered a "+getClass().getName();
+	}
 	public boolean attack(Player player) {
 		return false;
 	}
@@ -81,8 +84,11 @@ class Goblin extends Monster {
 		super(5, 3, 3, 3);
 	}
 	
+	public String entrance() {
+		return "A goblin appears, brashing an oversized stick like a club.";
+	}
 	public boolean attack(Player player) {
-		System.out.println("The Goblin Attacks");
+		System.out.println("The Goblin clubs you with its stick.");
 		
 		int damage = getAtk() - player.defend();
 		System.out.printf("It deals %d damage%n", damage);
