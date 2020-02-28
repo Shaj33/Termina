@@ -1,0 +1,5 @@
+Refactor code
+Implement beginning of the game.
+Basic gameplay loop.
+Quests.
+
