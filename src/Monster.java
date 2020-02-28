@@ -11,16 +11,20 @@ public class Monster {
 		this.spd = spd;
 	}
 	
-	public boolean attack() {
+	public boolean attack(Player player) {
 		return false;
 	}
 	
-	public boolean specattack1() {
+	public boolean specattack1(Player player) {
 		return false;
 	}
 	
-	public boolean specattack2() {
+	public boolean specattack2(Player player) {
 		return false;
+	}
+	
+	public int defend() {
+		return def;
 	}
 	
 	public int getMaxhp() {

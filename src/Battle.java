@@ -44,7 +44,7 @@ public class Battle {
 			}
 			
 			if (action == 1) {
-				player.attack();
+				player.attack(enemy);
 			} else if (action == 2) {
 				GameStart.NotInYet();
 			} else if (action == 3) {
@@ -61,12 +61,12 @@ public class Battle {
 	public static void monstermove(Player player, Monster enemy) {
 		int enemymove = GameStart.rand.nextInt(10);
 		
-		if (enemymove == 9 && enemy.specattack2()) { 
+		if (enemymove == 9 && enemy.specattack2(player)) { 
 			return;
-		} else if (enemymove >= 6 && enemy.specattack1()) {
+		} else if (enemymove >= 6 && enemy.specattack1(player)) {
 			return;
 		} else {
-			enemy.attack();
+			enemy.attack(player);
 		}
 	}
 }
