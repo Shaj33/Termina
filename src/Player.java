@@ -83,6 +83,7 @@ public class Player {
 		//Calculates damage based on weapon and personal attack and enemy defense. 
 		int damage =  eqWeapon.attack() + atk - enemy.defend();
 		
+		if (damage < 0) damage = 0;
 		//Updates and displays info. 
 		System.out.printf("You hit for %d damage.%n", damage);
 		enemy.setChp(enemy.getChp() - damage);
@@ -92,7 +93,7 @@ public class Player {
 	}
 	
 	public int defend() {
-		return def + eqArmor.defend();
+		return def + eqArmor.getDef();
 	}
 	
 	public String getName() {
