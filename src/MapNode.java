@@ -2,16 +2,25 @@
 public class MapNode {
 	private String name, desc;
 	private MapNode north, south, east, west;
+	private boolean encounters;
+	private Monster[] monsterlist;
 	
-	public MapNode(String name, String desc) {
+	public MapNode(String name, String desc, boolean encounters) {
 		this.name = name;
 		this.desc = desc;
+		this.encounters = encounters;
 	}
 	
 	public static MapNode CreateMap() {
-		MapNode start = new MapNode("Start", "The Start");
-		MapNode end = new MapNode("End", "The End");
-		MapNode wild = new MapNode("Wild Area", "Encounters on");
+		MapNode start = new MapNode("Start", "The Start", false);
+		MapNode end = new MapNode("End", "The End", false);
+		MapNode wild = new MapNode("Wild Area", "Encounters on", true);
+		
+		Monster[] wildlist = {new Goblin()};
+		
+		wild.setMonsterlist(wildlist);
+		
+		
 		start.setNorth(end);
 		start.setEast(wild);
 		return start;
@@ -63,6 +72,22 @@ public class MapNode {
 	public void setWest(MapNode west) {
 		this.west = west;
 		west.east = this;
+	}
+
+	public boolean isEncounters() {
+		return encounters;
+	}
+
+	public void setEncounters(boolean encounters) {
+		this.encounters = encounters;
+	}
+
+	public Monster[] getMonsterlist() {
+		return monsterlist;
+	}
+
+	public void setMonsterlist(Monster[] monsterlist) {
+		this.monsterlist = monsterlist;
 	}
 	
 	
