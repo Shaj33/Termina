@@ -6,8 +6,6 @@ public class Battle {
 		System.out.println(enemy.entrance());//Monster entrance
 		int playertick = 0, monstertick = 0; //Starts Both Player and Enemy at 0 ticks
 		player.setCtech(0); //Sets Player's TP to 0
-		String playerstat = null, enemystat = null; //Player and Enemy status effects. 
-		int pstattime = 0, estattime = 0;//Time left for status effect
 		/*
 		 * Burning - Damage per second
 		 * Oiled (Ignited) - If hit by burnable attack, will enhance burn effect
@@ -103,12 +101,14 @@ public class Battle {
 	public static void monstermove(Player player, Monster enemy) {
 		int enemymove = GameStart.rand.nextInt(10);
 		
-		if (enemymove == 9 && enemy.specattack2(player)) { 
-			return;
-		} else if (enemymove >= 6 && enemy.specattack1(player)) {
-			return;
-		} else {
-			enemy.attack(player);
+		while (true) {
+			if (enemymove == 9 && enemy.specattack2(player)!= -1) { 
+				return;
+			} else if (enemymove >= 6 && enemy.specattack1(player) != -1) {
+				return;
+			} else if (enemy.attack(player) != -1){
+				return;
+			}
 		}
 	}
 }

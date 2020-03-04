@@ -1,5 +1,5 @@
 
-public class Monster {
+public class Monster implements Cloneable{
 	
 	private int maxhp, chp, atk, def, spd; //Monster stats
 	
@@ -12,22 +12,28 @@ public class Monster {
 		this.spd = spd;
 	}
 	
+	public static Monster cloneMonster(Monster monster) throws CloneNotSupportedException {
+		Monster newmonster = (Monster)monster.clone();
+		
+		return newmonster;
+	}
+	
 	//Generic Battle Entrance
 	public String entrance() {
 		return "You've encountered a "+getClass().getName();
 	}
 	
 	//Generic Attack and Special Attacks, Should get Overridden by Specific Monster Classes
-	public boolean attack(Player player) {
-		return false;
+	public int attack(Player player) {
+		return -1;
 	}
 	
-	public boolean specattack1(Player player) {
-		return false;
+	public int specattack1(Player player) {
+		return -1;
 	}
 	
-	public boolean specattack2(Player player) {
-		return false;
+	public int specattack2(Player player) {
+		return -1;
 	}
 	
 	//Generic Defend
@@ -95,21 +101,23 @@ class Goblin extends Monster {
 	public String entrance() {
 		return "A goblin appears, brashing an oversized stick like a club.";
 	}
-	public boolean attack(Player player) {
+	public int attack(Player player) {
 		System.out.println("The Goblin pokes you with its stick.");
 
 		int damage = getAtk() - player.defend();
+		
+		if (damage < 0) damage = 0;
 		
 		System.out.printf("It deals %d damage%n", damage);
 		player.setChp(player.getChp() - damage);
 		System.out.printf("You have %d health left.%n", player.getChp());
 
-		return true;
+		return damage;
 	}
 	
-	public boolean specattack1(Player player) {
+	public int specattack1(Player player) {
 		System.out.println("The Goblin taunts you and calls your mother a whore.");
-		return true;
+		return 0;
 	}
 	
 	
