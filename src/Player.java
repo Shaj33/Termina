@@ -27,7 +27,7 @@ public class Player {
 	}
 
 	//Move command allows Player to move around the map
-	public void move() {
+	public void move(){
 		
 		//Prompt and Input
 		int move = 0;
@@ -71,10 +71,66 @@ public class Player {
 		
 		if (move > 4 || move < 1) {
 			System.out.println("No movement is selected.");
+		} else if (cmap.isEncounters()) {
+			int monster = GameStart.rand.nextInt(cmap.getMonsterlist().length);
+			
+			Monster enemy = null;
+			try {
+				enemy = Monster.cloneMonster(cmap.getMonsterlist()[monster]);
+				System.out.printf("%s, HP %s%n",enemy, enemy.getMaxhp());
+				Battle.enemybattle(this, enemy);
+			} catch (CloneNotSupportedException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		//Displays current map info.
 		System.out.printf("%n%s%n%s%n", cmap, cmap.getDesc());
+		
+	}
+	
+	public void LevelUp() {
+		//Specific levels will be implemented with maps later
+		
+		exp = 0;
+		level++;
+		
+		System.out.printf("Congrats! You're now Level %d%n", level);
+		System.out.printf("You have ten points to allocate. Please pick which stats you'd like to level up.%n");
+		
+		int points = 10, action = 0;
+		String pp;
+		while (points != 0) {
+			System.out.printf("1. Max Health%n2. Max Technique (+ TP Gain)%n3. Attack%n4. Defense%n5. Speed%n%d Points remaining.%n", points);
+			
+			//Check for valid int
+			pp = GameStart.input.next();
+			
+			if (GameStart.isInteger(pp)) {
+				action = Integer.parseInt(pp);
+			} else {
+				action = 0;
+			}
+			
+			
+			if (action == 1) {
+				maxhp++;
+			} else if (action == 2) {
+				maxtech++;
+			} else if (action == 3) {
+				atk++;
+			} else if (action == 4) {
+				def++;
+			} else if (action == 5) {
+				spd++;
+			}
+			
+			if (action > 0 || action < 5) {
+				points--;
+			} else {
+				System.out.println("Invalid input.\n");
+			}
+		}
 	}
 	
 	//Combat move, basic attack against enemy

@@ -1,7 +1,12 @@
 
 public class Battle {
 	
-	
+	/**
+	 * Method for the General battle. Player and enemy take turns depending on their speed.
+	 * @param player - Player character
+	 * @param enemy - Enemy monster
+	 * @return true if won, false if lost
+	 */
 	public static boolean enemybattle(Player player, Monster enemy) {
 		System.out.println(enemy.entrance());//Monster entrance
 		int playertick = 0, monstertick = 0; //Starts Both Player and Enemy at 0 ticks
@@ -32,21 +37,30 @@ public class Battle {
 		}
 		
 		//Player wins, resets health, victory rewards
-		if (enemy.getChp() < 0) {
+		if (enemy.getChp() <= 0) {
 			player.setChp(player.getMaxhp());
+			System.out.printf("You have defeated the %s%n", enemy);
+			player.LevelUp();
+			System.out.println("Press Enter to leave the battle.");
+			GameStart.input.nextLine();
+			GameStart.input.nextLine();
 			return true;
 		}
 		return true;
 	}
 	
 	
-	
+	/**
+	 * Commands that dictate the player's turn. They may attack, use skills, use items, or run from the battle. 
+	 * @param player - Player character
+	 * @param enemy - Enemy monster
+	 */
 	public static void playermove(Player player, Monster enemy) {
 		
 
 		int action = 0, skillu;
 		String actin;
-		while (action > 4 || action < 1) {
+		while (action > 4 || action < 1) {// If a valid action has not been picked, will loop until valid
 			System.out.printf("Health: %d%nTP: %d%n%nWhat do you want to do?%n1. Attack\t2. Skills%n3. Items\t4. Run%n%n", player.getChp(), player.getCtech());
 			
 			actin = GameStart.input.next();
@@ -57,11 +71,11 @@ public class Battle {
 				action = 0;
 			}
 			
-			if (action == 1) {
+			if (action == 1) {//Basic Attack, Gain TP
 				player.attack(enemy);
 				player.setCtech(player.getCtech() + Math.round(player.getMaxtech()/10));
 				
-			} else if (action == 2) {
+			} else if (action == 2) {//Player chooses skill, will consume TP
 				for (int i = 0; i < player.getSkills().size(); i++) { //Prints out all skills player has
 					System.out.printf("%d. %s%n", i+1, player.getSkills().get(i).getName());
 				}
@@ -87,9 +101,9 @@ public class Battle {
 					}
 				}
 				
-			} else if (action == 3) {
+			} else if (action == 3) {//Use items from inventory, will consume items
 				GameStart.NotInYet();
-			} else if (action == 4) {
+			} else if (action == 4) {//Run from battle. Instant loss. 
 				player.setChp(0);
 				System.out.printf("You ran from the %s%n", enemy);
 			} else {
@@ -98,6 +112,11 @@ public class Battle {
 		}
 	}
 	
+	/**
+	 * Method to dictate enemy turn. Enemy will use either a basic attack (60%), or one of two special attacks (30% & 10%). Will repeat until a valid attack is used.
+	 * @param player - Player character
+	 * @param enemy - Enemy character
+	 */
 	public static void monstermove(Player player, Monster enemy) {
 		int enemymove = GameStart.rand.nextInt(10);
 		
