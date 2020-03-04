@@ -10,15 +10,21 @@ public class GameStart {
 		// TODO Auto-generated method stub
 		Player player = new Player("Chipotle");
 		System.out.printf("Player %s, Level %d%n", player.getName(), player.getLevel());
-		Goblin gobbo = new Goblin();
-		System.out.printf("%s, HP %s%n",gobbo, gobbo.getMaxhp());
-		Battle.enemybattle(player, gobbo);
+		player.move();
+		player.move();
+		player.move();
 		
 		
 		
-		input.next();
+		
+		input.nextLine();
 	}
 	
+	/**
+	 * Checks if the input is a valid integer
+	 * @param input - Checked to see if int
+	 * @return true if int, false if not
+	 */
 	public static boolean isInteger(String input) {
 		if (input == null) {
 			return false;

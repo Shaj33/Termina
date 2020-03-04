@@ -1,15 +1,23 @@
 
 public class Monster implements Cloneable{
 	
-	private int maxhp, chp, atk, def, spd; //Monster stats
+	private int maxhp, chp, atk, def, spd, exp; //Monster stats
 	
-	//Constructor
-	public Monster(int maxhp, int atk, int def, int spd) {
+	/**
+	 * Generic Monster constructor
+	 * @param maxhp - Monster's maximum health
+	 * @param atk - Monster's attack
+	 * @param def - Monster's defense
+	 * @param spd - Monster's speed
+	 * @param exp - Monster's exp granted on death
+	 */
+	public Monster(int maxhp, int atk, int def, int spd, int exp) {
 		this.maxhp = maxhp;
 		chp = maxhp;
 		this.atk = atk;
 		this.def = def;
 		this.spd = spd;
+		this.exp = exp;
 	}
 	
 	public static Monster cloneMonster(Monster monster) throws CloneNotSupportedException {
@@ -88,18 +96,25 @@ public class Monster implements Cloneable{
 		this.spd = spd;
 	}
 	
+	public int getExp() {
+		return exp;
+	}
+	
 	
 }
 
 //Goblin Monster
 class Goblin extends Monster {
 	
+	/**
+	 * Goblin creature
+	 */
 	public Goblin() {
-		super(5, 3, 3, 3);
+		super(5, 3, 3, 3, 1);
 	}
 	
 	public String entrance() {
-		return "A goblin appears, brashing an oversized stick like a club.";
+		return "A goblin appears, brandishing an oversized stick like a club.";
 	}
 	public int attack(Player player) {
 		System.out.println("The Goblin pokes you with its stick.");
