@@ -8,10 +8,6 @@ public class Armor {
 		this.def = def;
 	}
 	
-	public int defend() {
-		return def;
-	}
-	
 	public String getName() {
 		return name;
 	}
