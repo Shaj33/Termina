@@ -3,3 +3,5 @@ Implement beginning of the game.
 Basic gameplay loop.
 Quests.
 
+
+Implement Super class Fighter which Monster & Player are subclasses
