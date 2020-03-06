@@ -11,15 +11,10 @@ public class Battle {
 		System.out.println(enemy.entrance());//Monster entrance
 		int playertick = 0, monstertick = 0; //Starts Both Player and Enemy at 0 ticks
 		player.setCtech(0); //Sets Player's TP to 0
-		/*
-		 * Burning - Damage per second
-		 * Oiled (Ignited) - If hit by burnable attack, will enhance burn effect
-		 * Bleeding - Damage per second + slow effect
-		 * Paralyzed - Chance-based Turn Loss
-		 */
 		
 		
-		//Loop is done while battle is ongoing. Constantly adds player and enemy speed to ticks. 
+		
+		//Loop is done while battle is ongoing. Consta3ntly adds player and enemy speed to ticks. 
 		//Once one reaches 1000, resets and respective turn commences.
 		while (player.getChp() > 0 && enemy.getChp() > 0) {
 			playertick += player.getSpd();
@@ -28,11 +23,13 @@ public class Battle {
 			if (playertick > 1000) {
 				playertick -= 1000;
 				playermove(player, enemy);
+				checkStatusP(player);
 			}
 			
 			if (enemy.getChp() > 0 && monstertick > 1000) {
 				monstertick -= 1000;
 				monstermove(player, enemy);
+				checkStatusE(enemy);
 			}
 		}
 		
@@ -118,9 +115,10 @@ public class Battle {
 	 * @param enemy - Enemy character
 	 */
 	public static void monstermove(Player player, Monster enemy) {
-		int enemymove = GameStart.rand.nextInt(10);
 		
+		int enemymove;
 		while (true) {
+			enemymove = GameStart.rand.nextInt(10);
 			if (enemymove == 9 && enemy.specattack2(player)!= -1) { 
 				return;
 			} else if (enemymove >= 6 && enemy.specattack1(player) != -1) {
@@ -128,6 +126,48 @@ public class Battle {
 			} else if (enemy.attack(player) != -1){
 				return;
 			}
+		}
+	}
+	
+	/**
+	 * Status Effect to Player
+	 * @param player
+	 */
+	public static void checkStatusP(Player player) {
+		String status = player.getStatus().toString();
+		
+		if (status.equals("Bleed")) {
+			int damage = (int) (Math.round(player.getMaxhp()/10));
+			player.setChp(player.getChp() - damage);
+			System.out.printf("You bleeding from your cuts, losing %d points.%nYou now have %d health points left.%n%n", damage, player.getChp());
+			
+		}
+		
+		player.getStatus().TurnPass();
+		
+		if (player.getStatus().getTimeLeft() == 0) {
+			player.setStatus(new StatusEffect("None", -1, false));
+		}
+	}
+	
+	/**
+	 * Status Effect to Enemy
+	 * @param enemy
+	 */
+	public static void checkStatusE(Monster enemy) {
+		String status = enemy.getStatus().toString();
+		
+		if (status.equals("Bleed")) {
+			int damage = (int) (Math.round(enemy.getMaxhp()*0.167));
+			enemy.setChp(enemy.getChp() - damage);
+			System.out.printf("You bleeding from your cuts, losing %d points.%nYou now have %d health points left.%n%n", damage, enemy.getChp());
+			
+		}
+		
+		enemy.getStatus().TurnPass();
+		
+		if (enemy.getStatus().getTimeLeft() == 0) {
+			enemy.setStatus(new StatusEffect("None", -1, false));
 		}
 	}
 }

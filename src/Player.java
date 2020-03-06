@@ -7,6 +7,7 @@ public class Player {
 	private Weapon eqWeapon;
 	private Armor eqArmor;
 	private ArrayList<Skill> Skills = new ArrayList<Skill>();
+	private StatusEffect Status;
 	
 	//Player constructed at game beginning 
 	public Player(String name) {
@@ -24,6 +25,7 @@ public class Player {
 		eqWeapon = new Weapon("Fists", "You swing your fists.", 1);
 		eqArmor = new Armor("Peasant Clothes", 1);
 		Skills.add(new BigStrike());
+		Status = new StatusEffect("None", -1, false);
 	}
 
 	//Move command allows Player to move around the map
@@ -71,22 +73,27 @@ public class Player {
 		
 		if (move > 4 || move < 1) {
 			System.out.println("No movement is selected.");
-		} else if (cmap.isEncounters()) {
-			int monster = GameStart.rand.nextInt(cmap.getMonsterlist().length);
-			
-			Monster enemy = null;
-			try {
-				enemy = Monster.cloneMonster(cmap.getMonsterlist()[monster]);
-				System.out.printf("%s, HP %s%n",enemy, enemy.getMaxhp());
-				Battle.enemybattle(this, enemy);
-			} catch (CloneNotSupportedException e) {
-				e.printStackTrace();
-			}
 		}
-		
 		//Displays current map info.
 		System.out.printf("%n%s%n%s%n", cmap, cmap.getDesc());
 		
+	}
+	
+	public void encounter() {
+		
+		if (!cmap.isEncounters()) return;
+		
+		int monster = GameStart.rand.nextInt(cmap.getMonsterlist().length);
+		
+		Monster enemy = null;
+		try {
+			enemy = Monster.cloneMonster(cmap.getMonsterlist()[monster]);
+			System.out.printf("%s, HP %s%n",enemy, enemy.getMaxhp());
+			Battle.enemybattle(this, enemy);
+		} catch (CloneNotSupportedException e) {
+			System.out.println("No enemy encountered.");
+			return;
+		}
 	}
 	
 	public void LevelUp() {
@@ -263,6 +270,15 @@ public class Player {
 	public void setSkills(ArrayList<Skill> skills) {
 		Skills = skills;
 	}
+	
+	public StatusEffect getStatus() {
+		return Status;
+	}
+	
+	public void setStatus(StatusEffect status) {
+		this.Status = status;
+	}
+	
 
 	
 	
