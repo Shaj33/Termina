@@ -11,7 +11,7 @@ public class GameStart {
 		Player player = new Player("Chipotle");
 		System.out.printf("Player %s, Level %d%n", player.getName(), player.getLevel());
 		player.move();
-		player.move();
+		player.encounter();
 		player.move();
 		
 		
@@ -36,6 +36,7 @@ public class GameStart {
 		}
 		return true;
 	}
+	 
 	
 	public static void NotInYet() {
 		System.out.println("Not implemented yet");
