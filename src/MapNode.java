@@ -16,7 +16,7 @@ public class MapNode {
 		MapNode end = new MapNode("End", "The End", false);
 		MapNode wild = new MapNode("Wild Area", "Encounters on", true);
 		
-		Monster[] wildlist = {new Goblin()};
+		Monster[] wildlist = {new Goblin(), new Wolf()};
 		
 		wild.setMonsterlist(wildlist);
 		
