@@ -2,6 +2,8 @@
 public class Monster implements Cloneable{
 	
 	private int maxhp, chp, atk, def, spd, exp; //Monster stats
+	private StatusEffect status;
+	
 	
 	/**
 	 * Generic Monster constructor
@@ -18,8 +20,15 @@ public class Monster implements Cloneable{
 		this.def = def;
 		this.spd = spd;
 		this.exp = exp;
+		this.status = new StatusEffect("None", -1, false);
 	}
 	
+	/**
+	 * Clones monster from encounter list to battle
+	 * @param monster - Monster to clone
+	 * @return new monster
+	 * @throws CloneNotSupportedException
+	 */
 	public static Monster cloneMonster(Monster monster) throws CloneNotSupportedException {
 		Monster newmonster = (Monster)monster.clone();
 		
@@ -99,6 +108,14 @@ public class Monster implements Cloneable{
 	public int getExp() {
 		return exp;
 	}
+
+	public StatusEffect getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusEffect status) {
+		this.status = status;
+	}
 	
 	
 }
@@ -136,4 +153,53 @@ class Goblin extends Monster {
 	}
 	
 	
+}
+
+class Wolf extends Monster {
+	
+	/**
+	 * Wolf creature
+	 */
+	public Wolf() {
+		super(7, 4, 1, 4, 1);
+	}
+	
+	public String entrance() {
+		return "You encounter a Wolf, dropping into stance and bearing its fangs.";
+	}
+	
+	/**
+	 * Generic Attack, double damage
+	 */
+	public int specattack1(Player player) {
+		System.out.println("The Wolf's jaw digs straight through your armour and into your skin.");
+		int damage = getAtk()*2 - player.defend();
+		
+		if (damage < 0) damage = 0;
+		
+		System.out.printf("It deals %d damage%n", damage);
+		player.setChp(player.getChp() - damage);
+		System.out.printf("You have %d health left.%n", player.getChp());
+
+		return damage;
+	}
+	
+	/**
+	 * Special Attack, damage + causes bleed
+	 */
+	public int specattack2(Player player) {
+		System.out.println("The Wolf's claws scratch you, causing you to bleed!");
+		
+		int damage = getAtk() - player.defend();
+		
+		player.setStatus(new StatusEffect("Bleed", 3, false));
+		
+		if (damage < 0) damage = 0;
+		
+		System.out.printf("It deals %d damage%n", damage);
+		player.setChp(player.getChp() - damage);
+		System.out.printf("You have %d health left.%n", player.getChp());
+
+		return damage;
+	}
 }
